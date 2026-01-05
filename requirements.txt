@@ -1,0 +1,4 @@
+# dev dependecy
+mypy
+
+numpy
