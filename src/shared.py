@@ -1,19 +1,22 @@
 import csv
 import numpy as np
+import numpy.typing as npt
 
 INPUT_FILE: str = "../res/svmData.csv"
-RES_DIR: str = "../out/res"
+OUT_DIR: str = "../out/"
+
+ArrayF = npt.NDArray[np.floating]
+ArrayI = npt.NDArray[np.integer]
 
 
-def load_multiclass_csv(path: str) -> tuple[np.ndarray, np.ndarray]:
+def load_multiclass_csv(path: str) -> tuple[ArrayF, ArrayI]:
     """
-    Load a multiclass classification dataset from a CSV file.
-    The last column is assumed to be the class label.
+    Load a classification dataset from a CSV file.
     Args:
         path (str): Path to the CSV file.
     Returns:
-        X (np.ndarray): Feature matrix of shape (n_samples, n_features).
-        y (np.ndarray): Label vector of shape (n_samples,).
+        features (ArrayF): Feature matrix of shape (n_samples, n_features).
+        labels (ArrayI): Label vector of shape (n_samples,).
     """
     data: list[list[float]] = []
 
@@ -22,9 +25,9 @@ def load_multiclass_csv(path: str) -> tuple[np.ndarray, np.ndarray]:
         for row in reader:
             data.append([float(x) for x in row])
 
-    data_np: np.ndarray = np.array(data, dtype=np.float64)
+    data_np: np.ndarray = np.asarray(data, dtype=np.float64)
 
-    features: np.ndarray = data_np[:, :-1]
+    features: np.ndarray = data_np[:, :-1].astype(np.float64)
     labels: np.ndarray = data_np[:, -1].astype(np.int64)
 
     return features, labels

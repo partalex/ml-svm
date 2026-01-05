@@ -7,7 +7,8 @@ mypy ./src
 ## Run project
 
 ```bash
-python3 src/main.py
+python3 src/task-1.py
+python3 src/task-2.py
 ```
 
 ## Generate report
